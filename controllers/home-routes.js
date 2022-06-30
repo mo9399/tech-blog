@@ -20,8 +20,8 @@ router.get("/", (req, res) => {
       },
     ],
   })
-    .then((postData) => {
-      const posts = postData.map((post) => post.get({ plain: true }));
+  .then((dbPostData) => {
+    const posts = dbPostData.map((post) => post.get({ plain: true }));
 
       res.render("homepage", {
         posts,
@@ -56,13 +56,13 @@ router.get("/post/:id", (req, res) => {
       },
     ],
   })
-    .then((postData) => {
-      if (!postData) {
+  .then((dbPostData) => {
+    if (!dbPostData) {
         res.status(404).json({ message: "No post found with this id" });
         return;
       }
 
-      const post = postData.get({ plain: true });
+      const post = dbPostData.get({ plain: true });
 
       res.render("single-post", {
         post,
@@ -83,5 +83,14 @@ router.get("/login", (req, res) => {
 
   res.render("login");
 });
+
+router.get("/signup", (req, res) => {
+    if (req.session.loggedIn) {
+      res.redirect("/");
+      return;
+    }
+  
+    res.render("signup");
+  });
 
 module.exports = router;
