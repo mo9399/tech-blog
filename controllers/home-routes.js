@@ -35,7 +35,7 @@ router.get("/", (req, res) => {
 });
 
 // get single post
-router.get("/post/:id", (req, res) => {
+router.get("/posts/:id", (req, res) => {
   Post.findOne({
     where: {
       id: req.params.id,
@@ -64,7 +64,7 @@ router.get("/post/:id", (req, res) => {
 
       const post = dbPostData.get({ plain: true });
 
-      res.render("single-post", {
+      res.render("view-post", {
         post,
         loggedIn: req.session.loggedIn,
       });

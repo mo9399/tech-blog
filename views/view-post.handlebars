@@ -1,0 +1,54 @@
+<div class="post">
+    <article class="card">
+        <div class="card-header flex-row justify-space-between">
+            <h2 class="text-light">{{post.title}}</h2>
+            <div class="text-light">
+            Posted by
+            {{post.user.username}}
+            on
+            {{format_date post.created_at}}
+            </div>
+        </div>
+        <div class="card-body">{{post.post_body}}</div>
+    </article>
+</div>
+
+{{#if post.comments}}
+    <div class="comments">
+        <article class="card">
+            <div class="card-header">
+                <h4 class="text-light">Comments</h3>
+            </div>
+
+            <div class="card-body">
+                {{#each post.comments}}
+                <div class="comment">
+                    <p class="user-info">
+                    {{user.username}} on {{format_date created_at}}
+                    </p>
+                    <p>
+                    {{comment_text}}
+                    </p>
+                </div>
+                {{/each}}
+            </div>
+        </article>
+    </div>
+{{/if}}
+
+{{#if loggedIn}}
+  <form id="comment-form" class="card">
+    <div class="card-header">
+      <h4 class="text-light">Add New Comment</h3>
+    </div>
+
+    <div class="card-body">
+
+      <textarea name="comment-body" class="form-input"></textarea>
+
+      <button type="submit" class="btn form-btn">Submit</button>
+    </div>
+  </form>
+{{/if}}
+
+<script src="/javascript/comment.js"></script>
